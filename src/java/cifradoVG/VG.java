@@ -13,10 +13,8 @@ import javax.crypto.*;
 
 //Encriptación y desencriptación con VG
 public class VG {
-
     public static void main(String[] args) throws Exception {
-
-        System.out.println("Crear clave pública y privada");
+        System.out.println("\n________________________________Crear clave pública y privada_____________________________________");
 //Creación y obtención del par de claves
         KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
         keyGen.initialize(512);//tamaño de la clave
@@ -55,25 +53,20 @@ public class VG {
         System.out.println("Cifrar con clave pública RSA :");
         byte[] bufferCifrado = cifrador.doFinal(bufferClaro);
         mostrarBytes(bufferCifrado);
-        System.out.println("\n________________________________DESCIFRADO_VG_______________________________________");
-
+        System.out.println("\n________________________________DESCIFRADO_VG____________________________________");
 //Desencriptación utilizando la clave privada RSA
         cifrador.init(Cipher.DECRYPT_MODE, clavePrivada);
         System.out.println("Descifrar con clave privada :");
         bufferClaro = cifrador.doFinal(bufferCifrado);
-
         System.out.println(bufferClaro);
-
         System.out.println("Descifrar AES :");
         String DesifrarRSA = new String(bufferClaro);
         String decryptedAES = AES.decrypt(DesifrarRSA, secretKey);
         System.out.println(decryptedAES);
-        System.out.println("Descifrar Vigenere :");
+        System.out.println("Descifrar Vigenère :");
         System.out.println(vigenere.desencriptarTextoCifrado(decryptedAES, "LOUP"));
-
-        System.out.println("\n____________________________________FIN________________________________________________");
+        System.out.println("\n____________________________________FIN____________________________________________");
     }
-
     public static void mostrarBytes(byte[] buffer) throws IOException {
         System.out.write(buffer);
     }
