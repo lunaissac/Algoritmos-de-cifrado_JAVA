@@ -11,8 +11,8 @@ import java.io.IOException;
 import java.security.*;
 import javax.crypto.*;
 
-//Encriptación y desencriptación con RSA
-public class RSA {
+//Encriptación y desencriptación con VG
+public class VG {
 
     public static void main(String[] args) throws Exception {
 
@@ -34,35 +34,44 @@ public class RSA {
         System.out.println("\n");
 //Texto plano
         Vigenere vigenere = new Vigenere();
-        System.out.println("Encriptamos el texto claro...");
+//Clave para AES
         final String secretKey = "ssshhhhhhhhhhh!!!!";
-
+//Contraseña
         String originalString = "PARIS";
-        String encryptedAES = AES.encrypt(originalString, secretKey);
 
-        byte[] bufferClaro = vigenere.encriptarTextoClaro(encryptedAES, "LOUP").getBytes();
+        System.out.println("\n________________________________CIFRADO_VG_______________________________________");
 
-//Ciframos con clave pública el texto plano utilizando RSA
+        System.out.println("Contraseña :" + originalString);
+//Ciframos con Vigenère y su Clave es LOUP
+        String encryptedVigenere = (vigenere.encriptarTextoClaro(originalString, "LOUP"));
+        System.out.println("Cifrado Vigenère :" + encryptedVigenere);
+//Ciframos con AES y su Clave es ssshhhhhhhhhhh!!!!
+        byte[] bufferClaro = AES.encrypt(encryptedVigenere, secretKey).getBytes();
+        String Mostrar = new String(bufferClaro);
+        System.out.println("Cifrado AES :" + Mostrar);
+//Ciframos con clave pública el texto plano utilizando VG
         Cipher cifrador = Cipher.getInstance("RSA");
         cifrador.init(Cipher.ENCRYPT_MODE, clavePublica);
-        System.out.println("Cifrar con clave pública el Texto:");
-        mostrarBytes(bufferClaro);
-
-//Realización del cifrado del texto plano
+        System.out.println("Cifrar con clave pública RSA :");
         byte[] bufferCifrado = cifrador.doFinal(bufferClaro);
-        System.out.println("Texto CIFRADO");
         mostrarBytes(bufferCifrado);
-        System.out.println("\n_______________________________");
+        System.out.println("\n________________________________DESCIFRADO_VG_______________________________________");
 
-//Desencriptación utilizando la clave privada
+//Desencriptación utilizando la clave privada RSA
         cifrador.init(Cipher.DECRYPT_MODE, clavePrivada);
-        System.out.println("Descifrar con clave privada");
-
-//Obtener y mostrar texto descifrado
+        System.out.println("Descifrar con clave privada :");
         bufferClaro = cifrador.doFinal(bufferCifrado);
-        System.out.println("Texto DESCIFRADO");
-        mostrarBytes(bufferClaro);
-        System.out.println("\n_______________________________");
+
+        System.out.println(bufferClaro);
+
+        System.out.println("Descifrar AES :");
+        String DesifrarRSA = new String(bufferClaro);
+        String decryptedAES = AES.decrypt(DesifrarRSA, secretKey);
+        System.out.println(decryptedAES);
+        System.out.println("Descifrar Vigenere :");
+        System.out.println(vigenere.desencriptarTextoCifrado(decryptedAES, "LOUP"));
+
+        System.out.println("\n____________________________________FIN________________________________________________");
     }
 
     public static void mostrarBytes(byte[] buffer) throws IOException {

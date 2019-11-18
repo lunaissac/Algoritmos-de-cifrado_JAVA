@@ -8,8 +8,8 @@ public class Pruebas {
         Vigenere vigenere = new Vigenere();
         System.out.println("Encriptamos el texto claro...");
         
-        System.out.println(vigenere.encriptarTextoClaro("PARIS", "LOUP"));
+        System.out.println(vigenere.encriptarTextoClaro("ÑSGE|||----", "LOUP"));
         System.out.println("Ahora desencriptamos el resultado que nos dio la encriptación anterior...");
-        System.out.println(vigenere.desencriptarTextoCifrado("AOMXD", "LOUP"));
+        System.out.println(vigenere.desencriptarTextoCifrado("YHATLOUPLOU", "LOUP"));
     }
 }

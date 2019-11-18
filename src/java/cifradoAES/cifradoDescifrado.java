@@ -14,7 +14,7 @@ public class cifradoDescifrado {
 {
     final String secretKey = "ssshhhhhhhhhhh!!!!";
      
-    String originalString = "hb";
+    String originalString = "ÑSGE|||----";
     String encryptedString = AES.encrypt(originalString, secretKey) ;
     String decryptedString = AES.decrypt(encryptedString, secretKey) ;
      
