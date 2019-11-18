@@ -7,6 +7,7 @@ package cifradoVG;
 
 
 
+import cifradoAES.AES;
 import cifradoVigenere.Vigenere;
 import java.io.IOException;
 import java.security.*;
@@ -33,13 +34,18 @@ PublicKey clavePublica = clavesRSA.getPublic();
 //Se pueden mostrar las claves para ver cuáles son, aunque esto no es aconsejable
 System.out.println("clavePublica: " + clavePublica);
 System.out.println("clavePrivada: " + clavePrivada);
-
+System.out.println("\n");
 //Texto plano
         Vigenere vigenere = new Vigenere();
         System.out.println("Encriptamos el texto claro...");
- 
+final String secretKey = "ssshhhhhhhhhhh!!!!";
 
-byte[] bufferClaro = vigenere.encriptarTextoClaro("PARIS", "LOUP").getBytes();
+String originalString = "PARIS";
+String encryptedAES = AES.encrypt(originalString, secretKey) ;
+
+byte[] bufferClaro = vigenere.encriptarTextoClaro(encryptedAES, "LOUP").getBytes();
+
+
 
 //Ciframos con clave pública el texto plano utilizando RSA
 Cipher cifrador = Cipher.getInstance("RSA");
